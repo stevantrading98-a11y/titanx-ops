@@ -1,0 +1,9 @@
+{
+  "short_name": "TitanX OPS",
+  "name": "TitanX OPS - Señales de Trading",
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#0A0D12",
+  "background_color": "#0A0D12",
+  "orientation": "portrait"
+}
