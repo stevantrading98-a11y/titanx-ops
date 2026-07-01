@@ -37,16 +37,12 @@ function formatTime(ms) {
 }
 
 async function fetchSignals() {
-  const since = new Date(Date.now() - RECENT_MS).toISOString();
-  const url = `${SB_URL}?order=created_at.desc&limit=30&created_at=gte.${since}&apikey=${SB_KEY}`;
-  const res = await fetch(url, {
-    headers: {
-      "apikey": SB_KEY,
-      "Authorization": `Bearer ${SB_KEY}`,
-    },
-  });
+  const url = `${SB_URL}?select=*&order=created_at.desc&limit=30&apikey=${SB_KEY}`;
+  const res = await fetch(url);
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  return res.json();
+  const data = await res.json();
+  const since = Date.now() - RECENT_MS;
+  return data.filter(s => new Date(s.created_at).getTime() > since);
 }
 
 function SignalCard({ sig, now, isNew }) {
